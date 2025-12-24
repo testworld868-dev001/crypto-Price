@@ -21,8 +21,7 @@ ChartJS.register(
   TimeScale
 );
 
-const API_URLS =
-  "https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=USD&days=7";
+const API_URLS = "https://api.coingecko.com/api/v3/coins/";
 const CoinChart = ({ coinId }) => {
   const [chartData, SetChartData] = useState({
     datasets: [],
@@ -30,7 +29,9 @@ const CoinChart = ({ coinId }) => {
   //const [loading, setLoading] = useState(null);
   useEffect(() => {
     const fetchcoins = async () => {
-      const res = await fetch(`${API_URLS}`);
+      const res = await fetch(
+        `${API_URLS}${coinId}/market_chart?vs_currency=USD&days=7`
+      );
       if (!res.ok) throw new Error("Failed to fetch data");
       const data = await res.json();
       const prices = data.prices.map((price) => ({
